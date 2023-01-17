@@ -31,18 +31,27 @@ public class TicTacToe {
             // executing a move
             placePiece(gameBoard, playerPos, "player");
 
+            String result = checkWinner();
+            if (result.length() > 0) {
+                System.out.println(result);
+                break;
+            }
+
             // random computer move
             Random rand = new Random();
             int cpuPos = rand.nextInt(9) + 1;
-            while (cpuPos == playerPos) {
+            while (playerPositions.contains(cpuPos) || cpuPositions.contains(cpuPos)) {
                 cpuPos = rand.nextInt(9) + 1;
             }
             placePiece(gameBoard, cpuPos, "cpu");
 
             printGameBoard(gameBoard);
 
-            String result = checkWinner();
-            System.out.println(result);
+            result = checkWinner();
+            if (result.length() > 0) {
+                System.out.println(result);
+                break;
+            }
         }
     }
 
