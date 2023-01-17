@@ -1,3 +1,4 @@
+import java.util.Random;
 import java.util.Scanner;
 
 public class TicTacToe {
@@ -16,40 +17,18 @@ public class TicTacToe {
         // entering a move
         Scanner scan = new Scanner(System.in);
         System.out.println("Enter your placement (1-9): ");
-        int pos = scan.nextInt();
-
-        System.out.println(pos);
+        int playerPos = scan.nextInt();
 
         // executing a move
-        switch (pos) {
-            case 1:
-                gameBoard[0][0] = 'X';
-                break;
-            case 2:
-                gameBoard[0][2] = 'X';
-                break;
-            case 3:
-                gameBoard[0][4] = 'X';
-                break;
-            case 4:
-                gameBoard[2][0] = 'X';
-                break;
-            case 5:
-                gameBoard[2][2] = 'X';
-                break;
-            case 6:
-                gameBoard[2][4] = 'X';
-                break;
-            case 7:
-                gameBoard[4][0] = 'X';
-                break;
-            case 8:
-                gameBoard[4][2] = 'X';
-                break;
-            case 9:
-                gameBoard[4][4] = 'X';
-                break;
+        placePiece(gameBoard, playerPos, "player");
+
+        // random computer move
+        Random rand = new Random();
+        int cpuPos = rand.nextInt(9) + 1;
+        while (cpuPos == playerPos) {
+            cpuPos = rand.nextInt(9) + 1;
         }
+        placePiece(gameBoard,cpuPos,"cpu");
 
         printGameBoard(gameBoard);
     }
@@ -61,6 +40,32 @@ public class TicTacToe {
                 System.out.print(c);
             }
             System.out.println();
+        }
+    }
+
+
+    public static void placePiece(char[][] gameBoard, int pos, String user) {
+
+        char symbol = ' ';
+
+        if(user.equals("player")) {
+            symbol = 'X';
+        } else if(user.equals("cpu")) {
+            symbol = 'O';
+        }
+
+        switch (pos) {
+            case 1 -> gameBoard[0][0] = symbol;
+            case 2 -> gameBoard[0][2] = symbol;
+            case 3 -> gameBoard[0][4] = symbol;
+            case 4 -> gameBoard[2][0] = symbol;
+            case 5 -> gameBoard[2][2] = symbol;
+            case 6 -> gameBoard[2][4] = symbol;
+            case 7 -> gameBoard[4][0] = symbol;
+            case 8 -> gameBoard[4][2] = symbol;
+            case 9 -> gameBoard[4][4] = symbol;
+            default -> {
+            }
         }
     }
 }
